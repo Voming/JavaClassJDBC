@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TestJdbcRun2 {
+public class TestJdbcEmp2 {
 	public static void main(String[] args) {
 		Connection conn = null;
 		Statement stmt = null;

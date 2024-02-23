@@ -1,12 +1,19 @@
 package kh.mclass.jdbc.controller;
 
-public class EmpController {
-	public void selectList() {
+import java.util.List;
 
+import kh.mclass.jdbc.model.dao.EmpDao;
+import kh.mclass.jdbc.modle.vo.Emp;
+
+public class EmpController {
+	private EmpDao dao = new EmpDao();
+
+	public List<Emp> selectList() {
+		return dao.selectList();
 	}
 
-	public void insertEmp() {
-
+	public int insertEmp(Emp emp) {
+		return dao.insertEmp(emp);
 	}
 
 	public void deletEmp() {

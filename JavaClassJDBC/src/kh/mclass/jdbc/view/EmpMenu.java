@@ -1,8 +1,11 @@
 package kh.mclass.jdbc.view;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import kh.mclass.jdbc.controller.EmpController;
+import kh.mclass.jdbc.modle.vo.Emp;
 
 public class EmpMenu {
 	private Scanner sc = new Scanner(System.in);
@@ -12,10 +15,10 @@ public class EmpMenu {
 	public void mainMenu() {
 		while (true) {
 			Boolean exit = false;
-			System.out.println("메뉴를 고르세요");
-			System.out.print("1. 조회");
-			System.out.print("2. 추가");
-			System.out.print("3. 삭제");
+			System.out.println("1. 조회");
+			System.out.println("2. 추가");
+			System.out.println("3. 삭제");
+			System.out.print("메뉴를 고르세요");
 			String menu = sc.nextLine();
 			switch (menu) {
 			case "1":
@@ -39,15 +42,67 @@ public class EmpMenu {
 	}
 
 	public void selectList() {
-		controller.selectList();
+		List<Emp> empList = controller.selectList();
+		if (empList != null) {
+			System.out.println("사원수 : " + empList.size());
+			for (Emp emp : empList) {
+				System.out.println(emp);
+			}
+		} else {
+			System.out.println("오류로 못읽었음");
+		}
 	}
 
 	public void insertEmp() {
-		controller.insertEmp();
-	}
+		System.out.println("추가할 값을 입력하세요");
+//		int empno;
+//		String ename;
+//		String job;
+//		int mgr;
+//		Date hiredate;
+//		double sal;
+//		double comm;
+//		int deptno;
+		try {
+			System.out.print("ename: ");
+			String ename = sc.nextLine();
+			System.out.print("job: ");
+			String job = sc.nextLine();
 
+			// System.out.print("hiredate: ");
+			Date hiredate = null;
+			// 날짜는 입력받지 않고 일단은 null
+			
+			System.out.print("empno(7999): ");
+			String sempno = sc.nextLine();
+			int empno = Integer.parseInt(sempno);
+			System.out.print("mgr(4자리 7로 시작?): ");
+			String smgr = sc.nextLine();
+			int mag = Integer.parseInt(smgr);
+			System.out.print("deptno(10,20,30): ");
+			String sdeptno = sc.nextLine();
+			int deptno = Integer.parseInt(sdeptno);
+			
+			System.out.print("sal(7자리 숫자): ");
+			String ssal = sc.nextLine();
+			double sal = Double.parseDouble(ssal);
+			System.out.print("comm(7자리 숫자): ");
+			String scomm = sc.nextLine();
+			double comm = Double.parseDouble(scomm);
+
+			Emp emp = new Emp(empno, ename, job, mag, hiredate, sal, comm, deptno);
+			System.out.println(emp);
+			System.out.println("====확인");
+			if(controller.insertEmp(emp) == 1) {
+				System.out.println("입력 성공");
+			}else {
+				System.out.println("입력 실패");
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("알맞은 자료형을 입력하세요");
+		}
+	}
 	public void deletEmp() {
 		controller.deletEmp();
 	}
-
 }
