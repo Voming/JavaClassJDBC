@@ -16,8 +16,8 @@ public class EmpController {
 		return dao.insertEmp(emp);
 	}
 
-	public void deletEmp() {
-
+	public int deletEmp(String ename) {
+		return dao.deletEmp(ename);
 	}
 
 }

@@ -124,12 +124,12 @@ public class EmpDao {
 				System.out.println("연결 실패");
 			}
 
-			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) "
+			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) "  // 빈칸 주의
 					+ "values (?,?,?,?,SYSDATE,?,?,?)";   // PreparedStatement는 ?로 받을 값을 미리 표현
  
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, emp.getEmpno());
+			pstmt.setInt(1, emp.getEmpno());   //1부터 시작함
 			pstmt.setString(2, emp.getEname());
 			pstmt.setString(3, emp.getJob());
 			pstmt.setInt(4, emp.getMgr());
@@ -156,7 +156,43 @@ public class EmpDao {
 		return result;
 	}
 
-	public void deletEmp() {
+	public int deletEmp(String ename) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
 
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // lib, jar, class확인
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "scott", "TIGER");
+
+			if (conn != null) {
+				System.out.println("연결 완료");
+			} else {
+				System.out.println("연결 실패");
+			}
+
+			String sql = "delete from emp where ename = ?";   // PreparedStatement는 ?로 받을 값을 미리 표현
+ 
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, ename);
+			
+			result = pstmt.executeUpdate();   //여기 () 에는 sql을 넣지 않음
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return result;
 	}
 }

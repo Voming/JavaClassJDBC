@@ -18,7 +18,7 @@ public class EmpMenu {
 			System.out.println("1. 조회");
 			System.out.println("2. 추가");
 			System.out.println("3. 삭제");
-			System.out.print("메뉴를 고르세요");
+			System.out.print("메뉴를 고르세요 : ");
 			String menu = sc.nextLine();
 			switch (menu) {
 			case "1":
@@ -72,7 +72,7 @@ public class EmpMenu {
 			// System.out.print("hiredate: ");
 			Date hiredate = null;
 			// 날짜는 입력받지 않고 일단은 null
-			
+
 			System.out.print("empno(4자리 7로 시작?): ");
 			String sempno = sc.nextLine();
 			int empno = Integer.parseInt(sempno);
@@ -82,7 +82,7 @@ public class EmpMenu {
 			System.out.print("deptno(10,20,30): ");
 			String sdeptno = sc.nextLine();
 			int deptno = Integer.parseInt(sdeptno);
-			
+
 			System.out.print("sal(5자리 숫자): ");
 			String ssal = sc.nextLine();
 			double sal = Double.parseDouble(ssal);
@@ -93,9 +93,10 @@ public class EmpMenu {
 			Emp emp = new Emp(empno, ename, job, mag, hiredate, sal, comm, deptno);
 			System.out.println(emp);
 			System.out.println("====확인");
-			if(controller.insertEmp(emp) == 1) {
+
+			if (controller.insertEmp(emp) == 1) {
 				System.out.println("입력 성공");
-			}else {
+			} else {
 				System.out.println("입력 실패");
 			}
 		} catch (NumberFormatException e) {
@@ -104,7 +105,14 @@ public class EmpMenu {
 	}
 
 	public void deletEmp() {
-		controller.deletEmp();
+		System.out.println("지울 사원의 이름을 입력하세요");
+		System.out.print("ename: ");
+		String ename = sc.nextLine();
+		if (controller.deletEmp(ename) > 0) {
+			System.out.println("삭제 성공");
+		} else {
+			System.out.println("삭제 실패");
+		}
 	}
 
 }
