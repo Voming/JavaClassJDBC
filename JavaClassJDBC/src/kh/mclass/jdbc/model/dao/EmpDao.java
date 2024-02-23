@@ -137,7 +137,7 @@ public class EmpDao {
 			pstmt.setDouble(6, emp.getComm());
 			pstmt.setInt(7, emp.getDeptno());
 			
-			result = pstmt.executeUpdate(sql);
+			result = pstmt.executeUpdate();   //여기 () 에는 sql을 넣지 않음
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -83,10 +83,10 @@ public class EmpMenu {
 			String sdeptno = sc.nextLine();
 			int deptno = Integer.parseInt(sdeptno);
 			
-			System.out.print("sal(7자리 숫자): ");
+			System.out.print("sal(5자리 숫자): ");
 			String ssal = sc.nextLine();
 			double sal = Double.parseDouble(ssal);
-			System.out.print("comm(7자리 숫자): ");
+			System.out.print("comm(5자리 숫자): ");
 			String scomm = sc.nextLine();
 			double comm = Double.parseDouble(scomm);
 
