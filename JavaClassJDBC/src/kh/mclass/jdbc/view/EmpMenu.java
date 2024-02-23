@@ -102,7 +102,9 @@ public class EmpMenu {
 			System.out.println("알맞은 자료형을 입력하세요");
 		}
 	}
+
 	public void deletEmp() {
 		controller.deletEmp();
 	}
+
 }

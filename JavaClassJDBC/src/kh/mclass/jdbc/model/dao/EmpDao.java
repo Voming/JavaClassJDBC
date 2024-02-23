@@ -3,10 +3,10 @@ package kh.mclass.jdbc.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,10 +69,11 @@ public class EmpDao {
 		return empList;
 	}
 
-	public int insertEmp(Emp emp) {
+	public int insertEmp_(Emp emp) {
 		Connection conn = null;
 		Statement stmt = null;
 		int result = 0;
+
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver"); // lib, jar, class확인
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "scott", "TIGER");
@@ -84,16 +85,6 @@ public class EmpDao {
 			}
 
 			stmt = conn.createStatement();
-
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-			String ss = sdf.format(new java.util.Date());
-
-			// new java.util.Date()); //오늘 객체를 생성한다.
-
-			java.sql.Date d = java.sql.Date.valueOf(ss);
-
-			// java.sql.Date 형식으로 바꾼다.
 
 			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) " + "values ("
 					+ emp.getEmpno() + ", '" + emp.getEname() + "', '" + emp.getJob() + "', " + emp.getMgr() + ", "
@@ -109,6 +100,53 @@ public class EmpDao {
 			try {
 				if (stmt != null)
 					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public int insertEmp(Emp emp) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;   //PreparedStatement
+		int result = 0;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // lib, jar, class확인
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "scott", "TIGER");
+
+			if (conn != null) {
+				System.out.println("연결 완료");
+			} else {
+				System.out.println("연결 실패");
+			}
+
+			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) "
+					+ "values (?,?,?,?,SYSDATE,?,?,?)";   // PreparedStatement는 ?로 받을 값을 미리 표현
+ 
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, emp.getEmpno());
+			pstmt.setString(2, emp.getEname());
+			pstmt.setString(3, emp.getJob());
+			pstmt.setInt(4, emp.getMgr());
+			pstmt.setDouble(5, emp.getSal());
+			pstmt.setDouble(6, emp.getComm());
+			pstmt.setInt(7, emp.getDeptno());
+			
+			result = pstmt.executeUpdate(sql);
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 			} catch (Exception e2) {
