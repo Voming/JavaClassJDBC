@@ -73,10 +73,10 @@ public class EmpMenu {
 			Date hiredate = null;
 			// 날짜는 입력받지 않고 일단은 null
 			
-			System.out.print("empno(7999): ");
+			System.out.print("empno(4자리 7로 시작?): ");
 			String sempno = sc.nextLine();
 			int empno = Integer.parseInt(sempno);
-			System.out.print("mgr(4자리 7로 시작?): ");
+			System.out.print("mgr(4자리): ");
 			String smgr = sc.nextLine();
 			int mag = Integer.parseInt(smgr);
 			System.out.print("deptno(10,20,30): ");
