@@ -21,22 +21,25 @@ public class EmpDao {
 		List<Emp> empList = null;
 
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver"); // lib, jar, class확인
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "scott", "TIGER");
-
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // lib, jar, class 확인 / jar 파일은 클래스들의 묶음(Java Library)
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "scott", "TIGER");  // URL(IP+Port), User, Password
+			// 기본 계정 접근 할때 sys as sysdba
 			if (conn != null) {
 				System.out.println("연결 완료");
 			} else {
 				System.out.println("연결 실패");
 			}
 
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery("select * from emp");
+			stmt = conn.createStatement(); //Statement를 먼저 만들고 사용해야한다
+			
+			//String sql = "select * from emp";
+			String sql = "select * from emp where deptno = 20";
+			rset = stmt.executeQuery(sql);
 			// 이 위치에서 new 해서 list에 담아줌
 			empList = new ArrayList<Emp>();
 			while (rset.next()) {
 				// emp생성
-				Emp emp = new Emp();
+				Emp emp = new Emp();  // 생성한 이후에 넣어줘야 NullPointException 발생 안함
 				// emp 값 채우기
 				emp.setEmpno(rset.getInt("empNo"));
 				emp.setEname(rset.getString("ename"));
@@ -84,12 +87,13 @@ public class EmpDao {
 				System.out.println("연결 실패");
 			}
 
-			stmt = conn.createStatement();
-
+			stmt = conn.createStatement();   //createStatement()을 사용함 / prepareStatement(sql)이 아님
+			// 문자열이 들어갈 경우 ''가 필요함
 			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) " + "values ("
 					+ emp.getEmpno() + ", '" + emp.getEname() + "', '" + emp.getJob() + "', " + emp.getMgr() + ", "
 					+ "SYSDATE, " + emp.getSal() + ", " + emp.getComm() + ", " + emp.getDeptno() + ")";
 			System.out.println(sql);
+			
 			result = stmt.executeUpdate(sql);
 
 		} catch (ClassNotFoundException e) {
@@ -123,7 +127,7 @@ public class EmpDao {
 			} else {
 				System.out.println("연결 실패");
 			}
-
+			// PreparedStatement는 '' 대신 ?위치홀더 쿼리 스트링을 사용가능
 			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) "  // 빈칸 주의
 					+ "values (?,?,?,?,SYSDATE,?,?,?)";   // PreparedStatement는 ?로 받을 값을 미리 표현
  
@@ -172,7 +176,7 @@ public class EmpDao {
 			}
 
 			String sql = "delete from emp where ename = ?";   // PreparedStatement는 ?로 받을 값을 미리 표현
- 
+			//pstmt 생성후 ?위치 홀더 쿼리 스트림에 값 채우기
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, ename);
