@@ -95,7 +95,7 @@ public class EmpMenu {
 			System.out.println(emp);
 			System.out.println("====확인");
 
-			if (controller.insertEmp(emp) > 0) {
+			if (controller.insert(emp) > 0) {
 				System.out.println("입력 성공");
 			} else {
 				System.out.println("입력 실패");
@@ -109,7 +109,7 @@ public class EmpMenu {
 		System.out.println("지울 사원의 이름을 입력하세요");
 		System.out.print("ename: ");
 		String ename = sc.nextLine();
-		if (controller.deletEmp(ename) > 0) {
+		if (controller.delete(ename) > 0) {
 			System.out.println("삭제 성공");
 		} else {
 			System.out.println("삭제 실패");

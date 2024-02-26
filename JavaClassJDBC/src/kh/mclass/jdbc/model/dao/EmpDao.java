@@ -1,6 +1,8 @@
 package kh.mclass.jdbc.model.dao;
 //Data Access Object
 
+import static kh.mclass.jdbc.common.JdbcTemplate.close;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +15,90 @@ import java.util.List;
 import kh.mclass.jdbc.modle.vo.Emp;
 
 public class EmpDao {
-	public List<Emp> selectList() {
+	public List<Emp> selectList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		List<Emp> empList = null;
+		try {
+			stmt = conn.createStatement();
+
+			String sql = "select * from emp";
+			rset = stmt.executeQuery(sql);
+
+			empList = new ArrayList<Emp>();
+			while (rset.next()) {
+				Emp emp = new Emp();
+
+				emp.setEmpno(rset.getInt("empNo"));
+				emp.setEname(rset.getString("ename"));
+				emp.setJob(rset.getString("job"));
+				emp.setMgr(rset.getInt("mgr"));
+				emp.setHiredate(rset.getDate("hiredate"));
+				emp.setSal(rset.getDouble("sal"));
+				emp.setComm(rset.getInt("comm"));
+				emp.setDeptno(rset.getInt("deptno"));
+
+				empList.add(emp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+			close(conn);
+		}
+		return empList;
+	}
+
+	public int insertEmp(Connection conn, Emp emp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			String sql = "insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) " // 빈칸 주의
+					+ "values (?,?,?,?,SYSDATE,?,?,?)"; // PreparedStatement는 ?로 받을 값을 미리 표현
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, emp.getEmpno()); // 1부터 시작함
+			pstmt.setString(2, emp.getEname());
+			pstmt.setString(3, emp.getJob());
+			pstmt.setInt(4, emp.getMgr());
+			pstmt.setDouble(5, emp.getSal());
+			pstmt.setDouble(6, emp.getComm());
+			pstmt.setInt(7, emp.getDeptno());
+
+			result = pstmt.executeUpdate(); // 여기 () 에는 sql을 넣지 않음
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deletEmp(Connection conn, String ename) {
+		String sql = "delete from emp where ename = ?";
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ename);
+
+			result = pstmt.executeUpdate(); // 여기 () 에는 sql을 넣지 않음
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<Emp> selectList_() {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -115,7 +200,7 @@ public class EmpDao {
 		return result;
 	}
 
-	public int insertEmp(Emp emp) {
+	public int insertEmp_2(Emp emp) {
 		Connection conn = null;
 		PreparedStatement pstmt = null; // PreparedStatement
 		int result = 0;
@@ -162,7 +247,7 @@ public class EmpDao {
 		return result;
 	}
 
-	public int deletEmp(String ename) {
+	public int deletEmp_(String ename) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
