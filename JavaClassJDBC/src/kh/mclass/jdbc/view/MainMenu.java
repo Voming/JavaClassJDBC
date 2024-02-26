@@ -10,6 +10,7 @@ public class MainMenu {
 			Boolean exit = false;
 			System.out.println("1. EMP");
 			System.out.println("2. DEPT");
+			System.out.println("3. SALGRADE");
 			System.out.print("메뉴를 고르세요 : ");
 			String menu = sc.nextLine();
 			switch (menu) {
@@ -18,6 +19,9 @@ public class MainMenu {
 				break;
 			case "2":
 				new DeptMenu().mainMenu();
+				break;
+			case "3":
+				new SalgradeMenu().mainMenu();
 				break;
 			default:
 				exit = true;

@@ -12,8 +12,8 @@ public class DeptMenu {
 	private DeptController controller = new DeptController();
 
 	public void mainMenu() {
-		System.out.println("=====DEPT====");
 		while (true) {
+			System.out.println("=====DEPT====");
 			Boolean exit = false;
 			System.out.println("1. 조회");
 			System.out.println("2. 추가");
@@ -72,7 +72,7 @@ public class DeptMenu {
 			System.out.println(dept);
 			System.out.println("====확인");
 
-			if (controller.insert(dept) == 1) {
+			if (controller.insert(dept) > 0) {
 				System.out.println("입력 성공");
 			} else {
 				System.out.println("입력 실패");

@@ -13,8 +13,8 @@ public class EmpMenu {
 	private EmpController controller = new EmpController();
 	
 	public void mainMenu() {
-		System.out.println("=====DEPT====");
 		while (true) {
+			System.out.println("=====DEPT====");
 			Boolean exit = false;
 			System.out.println("1. 조회");
 			System.out.println("2. 추가");
@@ -95,7 +95,7 @@ public class EmpMenu {
 			System.out.println(emp);
 			System.out.println("====확인");
 
-			if (controller.insertEmp(emp) == 1) {
+			if (controller.insertEmp(emp) > 0) {
 				System.out.println("입력 성공");
 			} else {
 				System.out.println("입력 실패");
