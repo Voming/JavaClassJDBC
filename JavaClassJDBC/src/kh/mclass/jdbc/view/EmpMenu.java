@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import kh.mclass.jdbc.controller.DeptController;
 import kh.mclass.jdbc.controller.EmpController;
 import kh.mclass.jdbc.modle.vo.Emp;
 
@@ -12,9 +11,9 @@ public class EmpMenu {
 	private Scanner sc = new Scanner(System.in);
 
 	private EmpController controller = new EmpController();
-	private DeptController deptcontroller = new DeptController();
-
+	
 	public void mainMenu() {
+		System.out.println("=====DEPT====");
 		while (true) {
 			Boolean exit = false;
 			System.out.println("1. 조회");
@@ -32,13 +31,12 @@ public class EmpMenu {
 			case "3":
 				delete();
 				break;
-		
 			default:
 				exit = true;
 				break;
 			}
 			if (exit) {
-				System.out.println("시스템을 종료합니다.");
+				System.out.println("메인으로 돌아갑니다.");
 				break;
 			}
 		}
@@ -107,7 +105,7 @@ public class EmpMenu {
 		}
 	}
 
-	public void delet() {
+	public void delete() {
 		System.out.println("지울 사원의 이름을 입력하세요");
 		System.out.print("ename: ");
 		String ename = sc.nextLine();

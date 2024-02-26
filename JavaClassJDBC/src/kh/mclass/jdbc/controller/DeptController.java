@@ -6,17 +6,17 @@ import kh.mclass.jdbc.modle.service.DeptService;
 import kh.mclass.jdbc.modle.vo.Dept;
 
 public class DeptController {
-	private DeptService dao = new DeptService();
+	private DeptService service = new DeptService();
 
 	public List<Dept> selectList() {
-		return dao.selectList();
+		return service.selectList();
 	}
 
 	public int insert(Dept dept) {
-		return dao.insert(dept);
+		return service.insert(dept);
 	}
 
 	public int delete(String dname) {
-		return dao.delete(dname);
+		return service.delete(dname);
 	}
 }

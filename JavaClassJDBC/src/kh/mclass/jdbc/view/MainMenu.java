@@ -8,20 +8,16 @@ public class MainMenu {
 	public void mainMenu() {
 		while (true) {
 			Boolean exit = false;
-			System.out.println("1. 조회");
-			System.out.println("2. 추가");
-			System.out.println("3. 삭제");
+			System.out.println("1. EMP");
+			System.out.println("2. DEPT");
 			System.out.print("메뉴를 고르세요 : ");
 			String menu = sc.nextLine();
 			switch (menu) {
 			case "1":
-				selectList();
+				new EmpMenu().mainMenu();
 				break;
 			case "2":
-				insert();
-				break;
-			case "3":
-				delete();
+				new DeptMenu().mainMenu();
 				break;
 			default:
 				exit = true;

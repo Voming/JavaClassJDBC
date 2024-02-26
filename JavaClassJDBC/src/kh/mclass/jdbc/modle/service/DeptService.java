@@ -21,7 +21,7 @@ public class DeptService {
 	public List<Dept> selectList() {
 		List<Dept> result = null;
 		Connection conn = getConnection();
-		result = dao.selectList();
+		result = dao.selectList(conn);
 		close(conn);
 		return result;
 	}
@@ -30,7 +30,7 @@ public class DeptService {
 		int result = -1;
 		Connection conn = getConnection();
 		autoCommit(conn, false);
-		result = dao.insert(dept);
+		result = dao.insert(conn, dept);
 		if (result > 0) {
 			commit(conn);
 		} else {
@@ -43,7 +43,7 @@ public class DeptService {
 		int result = -1;
 		Connection conn = getConnection();
 		autoCommit(conn, false);
-		result = dao.delete(dname);
+		result = dao.delete(conn, dname);
 		if (result > 0) {
 			commit(conn);
 		} else {

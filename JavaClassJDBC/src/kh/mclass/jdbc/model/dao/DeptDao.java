@@ -23,9 +23,8 @@ public class DeptDao {
 //	private String dname;
 //	private String loc;
 
-	public List<Dept> selectList() {
+	public List<Dept> selectList(Connection conn) {
 		String sql = "select * from dept";
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Dept> result = null;
@@ -54,9 +53,8 @@ public class DeptDao {
 		return result;
 	}
 
-	public int insert(Dept dept) {
+	public int insert(Connection conn, Dept dept) {
 		String sql = "insert into dept values(?, ?, ?)";
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
@@ -73,14 +71,12 @@ public class DeptDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-			close(conn);
 		}
 		return result;
 	}
 
-	public int delete(String dname) {
-		String sql = "delete from emp where dname = ?";
-		Connection conn = null;
+	public int delete(Connection conn, String dname) {
+		String sql = "delete from dept where dname = ?";
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -95,7 +91,6 @@ public class DeptDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-			close(conn);
 		}
 		return result;
 	}
