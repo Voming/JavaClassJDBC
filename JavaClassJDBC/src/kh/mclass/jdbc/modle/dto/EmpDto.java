@@ -25,7 +25,7 @@ public class EmpDto {
 	private double sal;
 	private double comm;
 	private int deptno;
-	private String dname; 
-	//실제 디비에 저장된 내용 이외에도 화면에 띄워질 정보가 들어갈 수 있음
+	private String dname;
+	// 실제 디비에 저장된 내용 이외에도 화면에 띄워질 정보가 들어갈 수 있음
 
 }

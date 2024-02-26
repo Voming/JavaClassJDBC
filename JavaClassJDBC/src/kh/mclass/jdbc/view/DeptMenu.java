@@ -5,14 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import kh.mclass.jdbc.controller.DeptController;
-import kh.mclass.jdbc.controller.EmpController;
-import kh.mclass.jdbc.modle.vo.Emp;
+import kh.mclass.jdbc.modle.vo.Dept;
 
-public class EmpMenu {
+public class DeptMenu {
 	private Scanner sc = new Scanner(System.in);
 
-	private EmpController controller = new EmpController();
-	private DeptController deptcontroller = new DeptController();
+	private DeptController controller = new DeptController();
 
 	public void mainMenu() {
 		while (true) {
@@ -32,7 +30,6 @@ public class EmpMenu {
 			case "3":
 				delete();
 				break;
-		
 			default:
 				exit = true;
 				break;
@@ -45,11 +42,11 @@ public class EmpMenu {
 	}
 
 	public void selectList() {
-		List<Emp> empList = controller.selectList();
+		List<Dept> empList = controller.selectList();
 		if (empList != null) {
 			System.out.println("사원수 : " + empList.size());
-			for (Emp emp : empList) {
-				System.out.println(emp);
+			for (Dept dept : empList) {
+				System.out.println(dept);
 			}
 		} else {
 			System.out.println("오류로 못읽었음");
@@ -58,14 +55,7 @@ public class EmpMenu {
 
 	public void insert() {
 		System.out.println("추가할 값을 입력하세요");
-//		int empno;
-//		String ename;
-//		String job;
-//		int mgr;
-//		Date hiredate;
-//		double sal;
-//		double comm;
-//		int deptno;
+
 		try {
 			System.out.print("ename: ");
 			String ename = sc.nextLine();
@@ -93,11 +83,11 @@ public class EmpMenu {
 			String scomm = sc.nextLine();
 			double comm = Double.parseDouble(scomm);
 
-			Emp emp = new Emp(empno, ename, job, mag, hiredate, sal, comm, deptno);
-			System.out.println(emp);
+			Dept dept = new Dept();
+			System.out.println(dept);
 			System.out.println("====확인");
 
-			if (controller.insertEmp(emp) == 1) {
+			if (controller.insert(dept) == 1) {
 				System.out.println("입력 성공");
 			} else {
 				System.out.println("입력 실패");
@@ -107,11 +97,11 @@ public class EmpMenu {
 		}
 	}
 
-	public void delet() {
+	public void delete() {
 		System.out.println("지울 사원의 이름을 입력하세요");
 		System.out.print("ename: ");
 		String ename = sc.nextLine();
-		if (controller.deletEmp(ename) > 0) {
+		if (controller.delete(ename) > 0) {
 			System.out.println("삭제 성공");
 		} else {
 			System.out.println("삭제 실패");

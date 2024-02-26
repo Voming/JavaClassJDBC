@@ -18,11 +18,11 @@ import java.util.List;
 
 import kh.mclass.jdbc.modle.vo.Dept;
 
-
 public class DeptDao {
 //	private int deptno;
 //	private String dname;
 //	private String loc;
+
 	public List<Dept> selectList() {
 		String sql = "select * from dept";
 		Connection conn = null;
@@ -34,16 +34,16 @@ public class DeptDao {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			result = new ArrayList<Dept>();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Dept vo = new Dept();
 				vo.setDeptno(rs.getInt("deptno"));
 				vo.setDname(rs.getString("dname"));
 				vo.setLoc(rs.getString("loc"));
-				
+
 				result.add(vo);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -53,29 +53,50 @@ public class DeptDao {
 		}
 		return result;
 	}
-	
-	public int insertDept(Dept dept) {
-		String sql = "insert into dept values(51, 'KH', 'Seoul')";
+
+	public int insert(Dept dept) {
+		String sql = "insert into dept values(?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		int result = 0;
 		try {
 			conn = getConnection(); // 연결 부분을 메소드 호출로 간단하게 구현
+
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dept.getDeptno());
+			pstmt.setString(2, dept.getDname());
+			pstmt.setString(3, dept.getLoc());
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
 			close(pstmt);
 			close(conn);
 		}
 		return result;
 	}
-	
-	public int deletDept(String dname) {
-		
+
+	public int delete(String dname) {
+		String sql = "delete from emp where dname = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, dname);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
 	}
 }

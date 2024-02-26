@@ -5,7 +5,6 @@ import java.util.List;
 import kh.mclass.jdbc.modle.service.DeptService;
 import kh.mclass.jdbc.modle.vo.Dept;
 
-
 public class DeptController {
 	private DeptService dao = new DeptService();
 
@@ -13,13 +12,11 @@ public class DeptController {
 		return dao.selectList();
 	}
 
-	public int insertDept(Dept dept) {
-		return dao.insertDept(dept);
+	public int insert(Dept dept) {
+		return dao.insert(dept);
 	}
 
-	public int deletDept(String dname) {
-		return dao.deletDept(dname);
+	public int delete(String dname) {
+		return dao.delete(dname);
 	}
-
-
 }
