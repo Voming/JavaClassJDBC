@@ -15,6 +15,35 @@ public class SalgradeDao {
 //	private int grade;
 //	private int losal;
 //	private int hisal;
+	public Salgrade selectOne(Connection conn, int grade) {
+		Salgrade result = null;
+
+		String sql = "select * from salgrade where grade = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {   //찾은게 있다면
+				result = new Salgrade();
+				result.setGrade(rs.getInt("grade"));
+				result.setLosal(rs.getInt("losal"));
+				result.setHisal(rs.getInt("hisal"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	
 
 	public List<Salgrade> selectList(Connection conn) {
 		String sql = "select * from salgrade";
@@ -28,13 +57,13 @@ public class SalgradeDao {
 
 			list = new ArrayList<Salgrade>();
 			while (rs.next()) {
-				Salgrade sal = new Salgrade();
+				Salgrade vo = new Salgrade();
 
-				sal.setGrade(rs.getInt("grade"));
-				sal.setLosal(rs.getInt("losal"));
-				sal.setHisal(rs.getInt("hisal"));
+				vo.setGrade(rs.getInt("grade"));
+				vo.setLosal(rs.getInt("losal"));
+				vo.setHisal(rs.getInt("hisal"));
 
-				list.add(sal);
+				list.add(vo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,16 +75,16 @@ public class SalgradeDao {
 		return list;
 	}
 
-	public int insert(Connection conn, Salgrade sal) {
+	public int insert(Connection conn, Salgrade vo) {
 		String sql = "insert into salgrade values(?, ?, ?)";
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, sal.getGrade());
-			pstmt.setInt(2, sal.getLosal());
-			pstmt.setInt(3, sal.getHisal());
+			pstmt.setInt(1, vo.getGrade());
+			pstmt.setInt(2, vo.getLosal());
+			pstmt.setInt(3, vo.getHisal());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -84,4 +113,19 @@ public class SalgradeDao {
 		return result;
 	}
 
+	public int update(Connection con, Salgrade vo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "TODO";
+		try {
+			pstmt = con.prepareStatement(sql);
+			//TODO
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

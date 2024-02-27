@@ -8,15 +8,28 @@ import kh.mclass.jdbc.modle.vo.Salgrade;
 public class SalgradeController {
 	SalgradeService service = new SalgradeService();
 
+	public Salgrade selectOne(int grade) {
+		Salgrade result  = null;
+		result = service.selectOne(grade);
+		return result;
+	}
+
+	
 	public List<Salgrade> selectList() {
-		return service.selectList();
+		List<Salgrade> resultList = null;
+		resultList = service.selectList();
+		return resultList;
 	}
 
 	public int insert(Salgrade sal) {
-		return service.insert(sal);
+		int result = 0;
+		result = service.insert(sal);
+		return result;
 	}
 
 	public int delete(int grade) {
-		return service.delete(grade);
+		int result = 0;
+		result = service.delete(grade);
+		return result;
 	}
 }
