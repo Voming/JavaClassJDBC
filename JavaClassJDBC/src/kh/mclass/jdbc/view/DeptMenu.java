@@ -69,7 +69,7 @@ public class DeptMenu {
 			String loc = sc.nextLine();
 
 			Dept dept = new Dept(deptno, dname, loc);
-			System.out.println(dept);
+			System.out.print(dept);
 			System.out.println("====확인");
 
 			if (controller.insert(dept) > 0) {

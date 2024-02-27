@@ -64,7 +64,7 @@ public class JdbcTemplate { // 중복되는 connection, close 함
 
 	public static void close(Connection con) {
 		try {
-			if (con == null)
+			if (con != null)
 				con.close();
 		} catch (Exception e) {
 

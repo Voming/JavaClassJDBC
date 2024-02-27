@@ -14,7 +14,7 @@ public class EmpMenu {
 	
 	public void mainMenu() {
 		while (true) {
-			System.out.println("=====DEPT====");
+			System.out.println("=====EMP====");
 			Boolean exit = false;
 			System.out.println("1. 조회");
 			System.out.println("2. 추가");
@@ -92,7 +92,7 @@ public class EmpMenu {
 			double comm = Double.parseDouble(scomm);
 
 			Emp emp = new Emp(empno, ename, job, mag, hiredate, sal, comm, deptno);
-			System.out.println(emp);
+			System.out.print(emp);
 			System.out.println("====확인");
 
 			if (controller.insert(emp) > 0) {
