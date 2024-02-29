@@ -2,8 +2,8 @@ package kh.mclass.jdbc.controller;
 
 import java.util.List;
 
-import kh.mclass.jdbc.modle.service.EmpService;
-import kh.mclass.jdbc.modle.vo.Emp;
+import kh.mclass.jdbc.model.service.EmpService;
+import kh.mclass.jdbc.model.vo.Emp;
 
 public class EmpController {
 	private EmpService service = new EmpService();

@@ -2,8 +2,8 @@ package kh.mclass.jdbc.controller;
 
 import java.util.List;
 
-import kh.mclass.jdbc.modle.service.DeptService;
-import kh.mclass.jdbc.modle.vo.Dept;
+import kh.mclass.jdbc.model.service.DeptService;
+import kh.mclass.jdbc.model.vo.Dept;
 
 public class DeptController {
 	private DeptService service = new DeptService();

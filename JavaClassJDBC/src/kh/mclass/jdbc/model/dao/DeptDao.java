@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kh.mclass.jdbc.modle.vo.Dept;
+import kh.mclass.jdbc.model.vo.Dept;
 
 public class DeptDao {
 //	private int deptno;

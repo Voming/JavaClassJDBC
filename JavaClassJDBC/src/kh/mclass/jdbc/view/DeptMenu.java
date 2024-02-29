@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import kh.mclass.jdbc.controller.DeptController;
-import kh.mclass.jdbc.modle.vo.Dept;
+import kh.mclass.jdbc.model.vo.Dept;
 
 public class DeptMenu {
 	private Scanner sc = new Scanner(System.in);

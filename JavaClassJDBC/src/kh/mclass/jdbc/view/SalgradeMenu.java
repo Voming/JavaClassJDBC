@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import kh.mclass.jdbc.controller.SalgradeController;
-import kh.mclass.jdbc.modle.vo.Salgrade;
+import kh.mclass.jdbc.model.vo.Salgrade;
 
 public class SalgradeMenu {
 	Scanner sc = new Scanner(System.in);

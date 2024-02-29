@@ -2,8 +2,8 @@ package kh.mclass.jdbc.controller;
 
 import java.util.List;
 
-import kh.mclass.jdbc.modle.service.SalgradeService;
-import kh.mclass.jdbc.modle.vo.Salgrade;
+import kh.mclass.jdbc.model.service.SalgradeService;
+import kh.mclass.jdbc.model.vo.Salgrade;
 
 public class SalgradeController {
 	SalgradeService service = new SalgradeService();

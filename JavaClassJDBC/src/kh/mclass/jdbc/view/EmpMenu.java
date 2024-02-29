@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import kh.mclass.jdbc.controller.EmpController;
-import kh.mclass.jdbc.modle.vo.Emp;
+import kh.mclass.jdbc.model.vo.Emp;
 
 public class EmpMenu {
 	private Scanner sc = new Scanner(System.in);

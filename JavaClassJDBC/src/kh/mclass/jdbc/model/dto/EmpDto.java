@@ -1,8 +1,9 @@
-package kh.mclass.jdbc.modle.dto;
+package kh.mclass.jdbc.model.dto;
 
 import java.sql.Date;
 
-public class EmpAdddDto {
+// 사원 상세정보 보기
+public class EmpDto {
 //	SQL> desc emp;
 //	 이름          널?      유형
 //	 ------------- -------- ----------------------------
@@ -19,10 +20,12 @@ public class EmpAdddDto {
 	private String ename;
 	private String job;
 	private int mgr;
+	private String mgrEname;
 	private Date hiredate;
-//	private double sal;
-//	private double comm;
-//	private int deptno;
-	// 필수 항목들만 남기고 사용자들에게 입력 받는 DTO도 존재할 수 있음
+	private double sal;
+	private double comm;
+	private int deptno;
+	private String dname;
+	// 실제 디비에 저장된 내용 이외에도 화면에 띄워질 정보가 들어갈 수 있음
 
 }
